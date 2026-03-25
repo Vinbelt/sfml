@@ -5,7 +5,8 @@ set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
-find_package(SFML 2.5 COMPONENTS graphics window system audio REQUIRED)
+#find_package(SFML 2.5 COMPONENTS graphics window system audio REQUIRED)
+find_package(SFML 3 COMPONENTS Graphics Window System Audio REQUIRED)
 
 file(GLOB_RECURSE SOURCES "src/*.cpp")
 
