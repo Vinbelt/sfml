@@ -5,14 +5,22 @@
       "name": "Debug: MiProyectoSFML",
       "type": "cppdbg",
       "request": "launch",
-      "program": "${workspaceFolder}/build/MiProyectoSFML",
+      "program": "${workspaceFolder}/build/Fubar",
       "cwd": "${workspaceFolder}",
-      "environment": [{ "name": "DISPLAY", "value": ":99" }],
+      "environment": [
+        {
+          "name": "DISPLAY",
+          "value": ":99"
+        }
+      ],
       "MIMode": "gdb",
       "miDebuggerPath": "/usr/bin/gdb",
       "preLaunchTask": "CMake: Compilar",
       "setupCommands": [
-        { "text": "-enable-pretty-printing", "ignoreFailures": true }
+        {
+          "text": "-enable-pretty-printing",
+          "ignoreFailures": true
+        }
       ]
     }
   ]

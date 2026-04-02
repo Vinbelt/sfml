@@ -67,3 +67,8 @@ git clone --depth 1 --branch 3.0.0 https://github.com/SFML/SFML.git /tmp/SFML
 cmake -S /tmp/SFML -B /tmp/SFML/build -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=/usr/local
 cmake --build /tmp/SFML/build --parallel
 sudo cmake --install /tmp/SFML/build
+
+
+
+
+    "postStartCommand": "bash -lc 'tigervncserver -kill :1 >/dev/null 2>&1 || true ; rm -f /tmp/.X1-lock /tmp/.X11-unix/X1 2>/dev/null || true ; tigervncserver :1 -geometry 1440x768 -depth 24 -rfbport 5901 -dpi 96 -localhost -SecurityTypes None'",
