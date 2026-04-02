@@ -1,34 +1,45 @@
 #!/bin/bash
 set -ex
 
-echo "Inicio del script: $(date)"
-echo "🔴 Matando procesos VNC anteriores..."
+LOG="/home/vscode/vnc-loop.log"
 
-# Matar bucle while que relanza VNC
-pkill -f "while :; do.*tigervncserver :1" 2>/dev/null || true
+echo "Inicio del script segunda parte: $(date)" >> "$LOG"
+echo "🔴 Matando procesos VNC anteriores..." >> "$LOG"
 
-# Matar procesos VNC directos
+# Matar posibles watchdogs antiguos lanzados con bash -c
+pkill -f "rfbport 5901" 2>/dev/null || true
+pkill -f "ss -tuln | grep -q \":5901\"" 2>/dev/null || true
+
+# Matar VNC real
 pkill -f Xtigervnc 2>/dev/null || true
 pkill -f "/usr/bin/perl /usr/bin/tigervncserver :1" 2>/dev/null || true
+pkill -f "tigervncserver :1" 2>/dev/null || true
 
-# Limpiar locks (muy importante)
+# Limpiar locks
 rm -f /tmp/.X1-lock /tmp/.X11-unix/X1 2>/dev/null || true
 
-echo "🟢 Arrancando VNC con depth 24..."
-echo "He llegado aquí: $(date)" >> /home/vscode/vnc-loop.log
-nohup bash -c '
+sleep 2
+
+echo "🟢 Arrancando watchdog VNC con depth 24..." >> "$LOG"
+
+nohup bash -c "
+echo '[ '\"\$(date)\"' ] watchdog arrancado con PID' \$\$ >> '$LOG'
+
 while :; do
-  if ! ss -tuln | grep -q ":5901"; then
-    echo "[ $(date) ] VNC NO está activo → arrancando..."
+  if ! ss -tuln | grep -q ':5901'; then
+    echo '[ '\"\$(date)\"' ] VNC NO está activo -> arrancando...' >> '$LOG'
     tigervncserver :1 \
       -geometry 1440x768 \
       -depth 24 \
       -rfbport 5901 \
       -dpi 96 \
       -localhost \
-      -SecurityTypes None
+      -SecurityTypes None >> '$LOG' 2>&1
+    echo '[ '\"\$(date)\"' ] tigervncserver terminó con código' \$? >> '$LOG'
   fi
   sleep 5
-done' >/home/vscode/.vnc-loop.log 2>&1 &
-echo "He lanzado nohup: $(date)" >> /home/vscode/vnc-loop.log
-echo "✅ VNC lanzado en background"
+done
+" >/home/vscode/vnc-loop.log 2>&1 &
+
+echo "He lanzado nohup: $(date)" >> "$LOG"
+echo "✅ VNC lanzado en background" >> "$LOG"
