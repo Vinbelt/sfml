@@ -88,6 +88,21 @@ private:
     bool listo;
 };
 
+class Adrian
+{
+public:
+    Adrian(const sf::Vector2f posicion);
+    bool estaListo() const;
+    void setPosicion(sf::Vector2f posicion);
+    void mover(sf::Vector2f direccion, float dt);
+    void dibujar(sf::RenderWindow &ventana) const;
+
+private:
+    sf::Texture textura;
+    sf::Sprite sprite;
+    float velocidad;
+    bool listo;
+};
 
 
 
