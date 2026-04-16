@@ -3,7 +3,7 @@
 Fran::Fran(sf::Vector2f posicion)
     : velocidad(150.f), listo(false)
 {
-   if (!textura.loadFromFile("sprite4.png"))
+   if (!textura.loadFromFile("assets/sprite5-1.png"))
         return; // listo queda en false
 
     textura.setSmooth(false);
