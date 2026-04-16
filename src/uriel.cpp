@@ -1,18 +1,19 @@
 #include "funciones.h"
 
-  Uriel::Uriel(sf::Vector2f posicion, float escala)
+Uriel::Uriel(sf::Vector2f posicion)
     : velocidad(150.f), listo(false)
 {
-    if (!textura.loadFromFile(rutaPNG))
+   if (!textura.loadFromFile("sprite3.png"))
         return; // listo queda en false
 
     textura.setSmooth(false);
-    sprite.setTexture(sprite3.png);
-    sprite.setScale(1.f,1f);
+    sprite.setTexture(textura);
+    sprite.setScale(1.f, 1.f);
     sprite.setOrigin(textura.getSize().x / 2.f, textura.getSize().y / 2.f);
     sprite.setPosition(posicion);
     listo = true;
 }
+
 bool Uriel::estaListo() const { return listo; }
 
 // Movimiento absoluto
@@ -26,21 +27,7 @@ void Uriel::mover(sf::Vector2f direccion, float dt)
 {
     sprite.move(direccion * velocidad * dt);
 }
-
-void Uriel::setVelocidad(float v) { velocidad = v; }
-
-void Uriel::setEscala(float escala)
+void Uriel::dibujar(sf::RenderWindow &ventana) const
 {
-    sprite.setScale(escala, escala);
+    ventana.draw(sprite);
 }
-
-void Javier::setRotacion(float angulo)
-{
-    sprite.setRotation(angulo);
-}
-
-void Javier::rotar(float grados)
-{
-    sprite.rotate(grados);
-}
-
