@@ -5,10 +5,6 @@ int main()
 {
     sf::RenderWindow window(sf::VideoMode(800, 600), "Juego"); // Crea una ventana window
 
-    sf::RectangleShape enemy({40.f, 40.f}); // Crea objeto enemy
-
-    enemy.setFillColor(sf::Color::Red);
-    enemy.setPosition(200.f, 0.f);
 
     // Objeto javier
     Javier javier("assets/javier.png", {40.f, 30.f}, 0.1f);
@@ -59,7 +55,6 @@ int main()
 
         beltran.mover(dirb, dt);
 
-        mEnemigo(enemy, dt);
 
         // Objeto Javier
         // Movimiento con WASD
@@ -76,7 +71,6 @@ int main()
 
         window.clear();
         beltran.dibujar(window);
-        window.draw(enemy);
         javier.dibujar(window);
         raul.dibujar(window);
         // Objeto javier
